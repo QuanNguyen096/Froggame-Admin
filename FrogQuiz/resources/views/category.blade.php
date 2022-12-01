@@ -66,15 +66,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js" integrity="sha256-CgrKEb54KXipsoTitWV+7z/CVYrQ0ZagFB3JOvq2yjo=" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css" integrity="sha256-2bAj1LMT7CXUYUwuEnqqooPb1W0Sw0uKMsqNH0HwMa4=" crossorigin="anonymous" />
-        <script>
-            function conf(msg) {
-                if (typeof (msg) === 'undefined')
-                    msg = 'proceed';
-                if (confirm('Are you sure?\nWant to ' + msg + '?')) {
-                } else
-                    return false;
-            }
-        </script>    </head>
+    </head>
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
@@ -180,116 +172,48 @@
                 <div class="right_col" role="main">
                     <!-- top tiles -->
                     <br />
+                    
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Thêm Lĩnh vực</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class='row'>
-                                        <div class='col-md-12 col-sm-12'>
-                                            <form id="category_form" method="POST" action="db_operations.php" class="form-horizontal form-label-left" enctype="multipart/form-data">
-                                                <input type="hidden" id="add_category" name="add_category" required="" value="1" aria-required="true">
-                                                    <div class="form-group row">
-                                                        <div class="col-md-6 col-sm-12">
-                                                            <label for="name">Tên lĩnh vực</label>
-                                                            <input type="text" id="name" name="name" required class="form-control">
-                                                        </div>
-                                                        
-                                                    </div>
-
-                                                
-
-                                                        <!-- <div class="form-group"> -->
-                                                    <input type='text' name="paid_coin" id="paid_coin" placeholder="Enter coins here"style='display:none;'>
-                                                <!-- </div> -->
-
-                                                    </div>
+                        <div class='col-sm-12'>
+                            <h2>Lĩnh vực</h2>
+                            <div class="col-md-12 bg-light text-right"><button type="submit" class="btn btn-primary addbtn btn-sm">Thêm lĩnh vực</button></div>
+                            <div class='col-md-12'><hr></div>
+                        </div>
+                        <div class='col-md-12 col-sm-12'>
+                            <div class='row'>
+                                <table class="content-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tên lĩnh vực</th>
+                                            <th>Số lượng câu hỏi</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($list_category as $category)
+                                        <tr>
+                                            <td>{{$category->id}}</td>
+                                            <td>{{$category->name}}</td>
+                                            <td>{{$category->total_question}}</td>
+                                            <td>{{$category->created_at}}</td>
+                                            <td>
+                                                <div class="col-md-2">
+                                                    <button type="button" value="{{$category->id}}" class="btn btn-primary editbtn btn-sm">Sửa</button>
                                                 </div>
-
-                                                <div class="ln_solid"></div>
-                                                <div id="result"></div>
-                                                <div class="form-group">
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <button type="submit" id="submit_btn" class="btn btn-warning">Add New</button>
-                                                    </div>
+                                                <div class="col-md-2">
+                                                    <form method="post" action="{{route('delete-category',$category->id)}}">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-primary deletebtn btn-sm">Xóa</button>
+                                                    </form>
                                                 </div>
-                                            </form>
-                                            <div class="col-md-12"><hr></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class='col-sm-12'>
-                                            <h2>Lĩnh vực</h2>
-                                                
-                                                
-                                            <div class='col-md-12'><hr></div>
-                                        </div>
-                                        <div class='col-md-12 col-sm-12'>
-                                            
-                                            <div class='row'>
-                                                
-
-                                                <!-- <table aria-describedby="mydesc" class='table-striped' id='category_list'
-                                                       data-toggle="table"
-                                                       data-url="get-list.php?table=category"
-                                                       data-click-to-select="true"
-                                                       data-side-pagination="server"
-                                                       data-pagination="true"
-                                                       data-page-list="[5, 10, 20, 50, 100, 200]"
-                                                       data-search="true" data-show-columns="true"
-                                                       data-show-refresh="true" data-trim-on-search="false"
-                                                       data-sort-name="row_order" data-sort-order="asc"
-                                                       data-mobile-responsive="true"
-                                                       data-toolbar="#toolbar" data-show-export="false"
-                                                       data-maintain-selected="true"
-                                                       data-export-types='["txt","excel"]'
-                                                       data-export-options='{
-                                                       "fileName": "category-list-20-11-22",
-                                                       "ignoreColumn": ["state"]
-                                                       }'
-                                                       data-query-params="queryParams">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col" data-field="state" data-checkbox="true"></th>
-                                                            <th scope="col" data-field="id" data-sortable="true">ID</th>
-                                                                                                                            <th scope="col" data-field="language_id" data-sortable="true" data-visible="false">Language ID</th>
-                                                                <th scope="col" data-field="language" data-sortable="true">Language</th>
-                                                                                                                        <th scope="col" data-field="row_order" data-visible='false' data-sortable="true">Order</th>
-                                                            <th scope="col" data-field="category_name" data-sortable="true">Category Name</th>
-                                                            <th scope="col" data-field="image" data-sortable="false">Image</th>
-                                                            <th scope="col" data-field="status" data-sortable="false">Status</th>
-                                                            <th scope="col" data-field="category_type" data-sortable="false">Category type</th>
-
-
-                                                            <th scope="col" data-field="no_of_que" data-sortable="false">Total Question</th>
-                                                            <th scope="col" data-field="operate" data-events="actionEvents">Operate</th>
-                                                        </tr>
-                                                    </thead>
-                                                </table> -->
-                                                <table class="content-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Tên lĩnh vực</th>
-                                                            <th>Số lượng câu hỏi</th>
-                                                            <th>Ngày tạo</th>
-                                                            <th>Chức năng</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($list_category as $category)
-                                                        <tr>
-                                                            <td>{{$category->id}}</td>
-                                                            <td>{{$category->name}}</td>
-                                                            <td>{{$category->total_question}}</td>
-                                                            <td>{{$category->created_at}}</td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -299,66 +223,66 @@
                     </div>
                 </div>
             </div>
-            <!-- /page content -->
-            <div class="modal fade" id='editCategoryModal' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-md" role="document">
+            <!-- AddModal -->
+            <div class="modal fade" id='addModal' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Main Category</h4>
+                            <h4 class="modal-title" id="myModalLabel">Thêm thể loại</h4>
                         </div>
                         <div class="modal-body">
-                            <form id="update_form"  method="POST" action ="db_operations.php" data-parsley-validate class="form-horizontal form-label-left">
-                                <input type='hidden' name="update_category" id="update_category" value='1'/>
-                                <input type='hidden' name="category_id" id="category_id" value=''/>
-                                <input type='hidden' name="image_url" id="image_url" value=''/>
-                                                                    <div class="form-group">
-                                        <label class="" for="name">Language</label>
-                                        <select id="update_language_id" name="language_id" required class="form-control">
-                                            <option value="">Select language</option>
-                                                                                            <option value='22'>15</option>
-                                                                                            <option value='21'>Português</option>
-                                                                                            <option value='20'>Yy</option>
-                                                                                            <option value='19'>indonesia</option>
-                                                                                            <option value='18'>id</option>
-                                                                                            <option value='17'>Bengali</option>
-                                                                                            <option value='15'>arab</option>
-                                                                                            <option value='13'>Hindi </option>
-                                                                                            <option value='12'>Urdu</option>
-                                                                                            <option value='9'>English</option>
-                                                                                    </select>
-                                    </div>
-                                                                <div class="form-group">
-                                    <label for="name">Category Name</label>
-                                    <input type="text" name="name" id="update_name" placeholder="Category Name" class='form-control' required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="image">Image <small>( Leave it blank for no change )</small></label>
-                                    <input type="file" name="image" id="update_image" class="form-control" aria-required="true">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div id="status" class="btn-group" >
-                                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                <input type="radio" name="status" value="0">  Deactive
-                                            </label>
-                                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                <input type="radio" name="status" value="1"> Active
-                                            </label>
-                                        </div>
+                            <form method="post" action="{{route('add-category')}}" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" id="add_category" name="add_category" required="" value="1" aria-required="true">
+                                <div class="form-group row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="name">Tên lĩnh vực</label>
+                                        <input type="text" id="name" name="name" required class="form-control">
                                     </div>
                                 </div>
-
-                                <input type="hidden" id="id" name="id">
+                                <!-- <div class="form-group"> -->
+                                <input type='text' name="paid_coin" id="paid_coin" placeholder="Enter coins here"style='display:none;'>
                                 <div class="ln_solid"></div>
+                                <div id="result"></div>
                                 <div class="form-group">
-                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                        <button type="submit" id="update_btn" class="btn btn-success">Update</button>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <button type="submit" id="submit_btn" class="btn btn-warning">Thêm lĩnh vực</button>
                                     </div>
                                 </div>
                             </form>
-                            <div class="row"><div  class="col-md-offset-3 col-md-8" style ="display:none;" id="update_result"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- EditModal -->
+            <div class="modal fade" id='editModal' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Chỉnh sửa thể loại</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{{route('update-category')}}" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" id="id" name="id" required="" value="">
+                                <div class="form-group row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="name">Tên lĩnh vực</label>
+                                        <input type="text" id="category_name" name="category_name" class="form-control">
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group"> -->
+                                <div class="ln_solid"></div>
+                                <div id="result"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <button type="submit" id="submit_btn" class="btn btn-warning">Cập nhật lĩnh vực</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -401,189 +325,43 @@
         </div>
 
         <!-- jQuery -->
-
         <script>
-            $('#filter_btn').on('click', function (e) {
-                $('#category_list').bootstrapTable('refresh');
+            $(document).ready(function () {
+                $(document).on('click','.addbtn',function() {
+                    //var category_id = $(this).val();
+                    //alert(question_id);
+                    $('#addModal').modal('show');
+
+                //     $.ajax({
+                //         type: "GET",
+                //         url: "/categories",
+                //         success: function (response) {
+                //             //console.log(response.question.id);
+                //     }
+                // });
             });
-            $('#delete_multiple_categories').on('click', function (e) {
-                sec = 'category';
-                is_image = 1;
-                table = $('#category_list');
-                delete_button = $('#delete_multiple_categories');
-                selected = table.bootstrapTable('getAllSelections');
+        });
 
-                ids = "";
-                $.each(selected, function (i, e) {
-                    ids += e.id + ",";
-                });
-                ids = ids.slice(0, -1); // removes last comma character
+        $(document).ready(function () {
+                $(document).on('click','.editbtn',function() {
+                    var category_id = $(this).val();
+                    //alert(question_id);
+                    $('#editModal').modal('show');
 
-                if (ids == "") {
-                    alert("Please select some categories to delete!");
-                } else {
-                    if (confirm("Are you sure you want to delete all selected categories?")) {
-                        $.ajax({
-                            type: 'GET',
-                            url: "db_operations.php",
-                            data: 'delete_multiple=1&ids=' + ids + '&sec=' + sec + '&is_image=' + is_image,
-                            beforeSend: function () {
-                                delete_button.html('<i class="fa fa-spinner fa-pulse"></i>');
-                            },
-                            success: function (result) {
-                                if (result == 1) {
-                                    alert("Categories deleted successfully");
-                                } else {
+                    $.ajax({
+                        type: "GET",
+                        url: "/categories/"+category_id,
+                        success: function (response) {
+                            console.log(response);
+                            $('#id').val(response.category.id);
+                            $('#category_name').val(response.category.name);
 
-                                    alert("Could not delete Categories. Try again!");
-                                }
-                                delete_button.html('<i class="fa fa-trash"></i>');
-                                table.bootstrapTable('refresh');
-                            }
-                        });
+                            
                     }
-                }
-            });
-        </script>
-        <script>
-            var $table = $('#category_list');
-            $('#toolbar').find('select').change(function () {
-                $table.bootstrapTable('refreshOptions', {
-                    exportDataType: $(this).val()
                 });
             });
+        });
         </script>
-
-        <script>
-            window.actionEvents = {
-                'click .edit-category': function (e, value, row, index) {
-                    // alert('You click remove icon, row: ' + JSON.stringify(row));
-                    var regex = /<img.*?src="(.*?)"/;
-                    var src = regex.exec(row.image)[1];
-                        $('#update_language_id').val(row.language_id);
-                    $('#category_id').val(row.id);
-                    $('#update_name').val(row.category_name);
-                    $('#image_url').val(src);
-
-
-                    $("input[name=status][value=1]").prop('checked', true);
-                    if ($(row.status).text() == 'Deactive')
-                        $("input[name=status][value=0]").prop('checked', true);
-                }
-            };
-        </script>
-        <script>
-            $('#update_form').on('submit', function (e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                if ($("#update_form").validate().form()) {
-                    $.ajax({
-                        type: 'POST',
-                        url: $(this).attr('action'),
-                        data: formData,
-                        beforeSend: function () {
-                            $('#update_btn').html('Please wait..');
-                        },
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (result) {
-                            $('#update_result').html(result);
-                            $('#update_result').show().delay(3000).fadeOut();
-                            $('#update_btn').html('Update');
-                            $('#update_image').val('');
-                            // $('#update_form')[0].reset();
-                            $('#category_list').bootstrapTable('refresh');
-                            setTimeout(function () {
-                                $('#editCategoryModal').modal('hide');
-                            }, 4000);
-                        }
-                    });
-                }
-            });
-        </script>
-        <script>
-            function queryParams(p) {
-                return {
-                    "language": $('#filter_language').val(),
-                    limit: p.limit,
-                    sort: p.sort,
-                    order: p.order,
-                    offset: p.offset,
-                    search: p.search
-                };
-            }
-        </script>
-         <script>
-            $("input[name=category_type]").change(function () {
-                console.log($(this).val());
-                if ($(this).val()=='1') {
-                    $('#paid_coin').show('fast');
-                    // $('#paid_coin').val('1');
-
-                } else  {
-                    // $('#paid_coin').val('0');
-                    $('#paid_coin').hide('fast');
-                }
-
-            });
-        </script>
-        <script>
-            $('#category_form').validate({
-                rules: {
-                    name: "required"
-                }
-
-            });
-        </script>
-
-        <script>
-            $('#category_form').on('submit', function (e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                if ($("#category_form").validate().form()) {
-                    if (confirm('Are you sure? Want to create Category')) {
-                        $.ajax({
-                            type: 'POST',
-                            url: $(this).attr('action'),
-                            data: formData,
-                            beforeSend: function () {
-                                $('#submit_btn').html('Please wait..');
-                            },
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function (result) {
-                                $('#result').html(result);
-                                $('#result').show().delay(4000).fadeOut();
-                                $('#submit_btn').html('Submit');
-                                $('#category_form')[0].reset();
-                                $('#category_list').bootstrapTable('refresh');
-                                $('#paid_coin').hide('fast');
-                            }
-                        });
-                    }
-                }
-            });
-        </script>
-        <script>
-            $(document).on('click', '.delete-category', function () {
-                if (confirm('Are you sure? Want to delete category? All related questions and sub categories will also be deleted')) {
-                    id = $(this).data("id");
-                    image = $(this).data("image");
-                    $.ajax({
-                        url: 'db_operations.php',
-                        type: "get",
-                        data: 'id=' + id + '&image=' + image + '&delete_category=1',
-                        success: function (result) {
-                            if (result == 1) {
-                                $('#category_list').bootstrapTable('refresh');
-                            } else
-                                alert('Error! Category could not be deleted');
-                        }
-                    });
-                }
-            });
-        </script>
+        
     </body>
 </html>

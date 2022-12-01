@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
@@ -32,9 +33,26 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //Validate requests
+        $request->validate([
+            'name'=>'required',
+        ]);
+        //dd($request);
+        //Insert data into database
+        $category = new Category;
+        $category->name = $request->name;
+        $category->created_at = date('Y-m-d H:i:s');
+        $category->save();
+
+        
+    
+        if($category){
+           return back()->with('success','Thêm thành công');
+        }else{
+            return back()->with('fail','Thêm thất bại, thử lại');
+        }
     }
 
     /**
@@ -65,9 +83,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return response()->json([
+            'category'=>$category,
+        ]);
     }
 
     /**
@@ -77,9 +98,19 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request)
     {
-        //
+        $category_id = $request->id;
+        $category = Category::find($category_id);
+        $category->name = $request->category_name;
+        $category->updated_at = date('Y-m-d H:i:s');
+        $category->update();
+
+        if($category){
+            return back()->with('success','Cập nhật thành công');
+         }else{
+             return back()->with('fail','Cập nhật thất bại, thử lại');
+         }
     }
 
     /**
@@ -88,8 +119,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        //dd($category);
+        $category->delete();
+        return back()->with('success','Xóa thành công');
     }
 }

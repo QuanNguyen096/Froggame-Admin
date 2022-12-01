@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('B');
             $table->string('C');
             $table->string('D');
-            $table->bigInteger('scrore');
+            $table->bigInteger('score');
             $table->timestamps();
             $table->softDeletes();
         });

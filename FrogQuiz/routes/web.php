@@ -30,11 +30,21 @@ Route::get('/home',[CustomAuthController::class,'home'])->name('home')->middlewa
 Route::get('/users',[UserInfoController::class,'index'])->name('users')->middleware('AdminRole');
 
 Route::get('/categories',[CategoryController::class,'index'])->name('category')->middleware('AdminRole');
+Route::post('/categories',[CategoryController::class,'create'])->name('add-category')->middleware('AdminRole');
+Route::get('/categories/{id}',[CategoryController::class,'edit'])->middleware('AdminRole');
+Route::put('/categories',[CategoryController::class,'update'])->name('update-category')->middleware('AdminRole');
+Route::delete('categories/{id}',[CategoryController::class, 'destroy'])->name('delete-category')->middleware('AdminRole');
+
 
 Route::get('/add-questions',[QuestionController::class,'index'])->name('add-questions')->middleware('AdminRole');
 
-Route::post('/add-questions',[QuestionController::class,'create'])->name('add-questions-action');
+Route::post('/add-questions',[QuestionController::class,'create'])->name('add-questions-action')->middleware('AdminRole');
 
+Route::get('/view-questions', [QuestionController::class,'show'])->name('view-questions')->middleware('AdminRole');
+
+Route::get('/view-questions/{id}', [QuestionController::class,'edit'])->middleware('AdminRole');
+Route::put('/update-questions', [QuestionController::class,'update'])->name('update-questions')->middleware('AdminRole');
+Route::delete('/view-questions/{id}', [QuestionController::class,'destroy'])->name('delete-questions')->middleware('AdminRole');
 
 Route::get('/global-leaderboard', function () {
     return view('global-leaderboard');
@@ -49,9 +59,7 @@ Route::get('/daily-leaderboard', function () {
 })->name('daily-leaderboard');
 
 
-Route::get('/view-questions', function () {
-    return view('view-questions');
-})->name('view-questions');
+
 
 Route::get('/question-packs', function () {
     return view('question-packs');

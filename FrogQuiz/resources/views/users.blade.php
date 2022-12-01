@@ -245,7 +245,7 @@
                                                 <th>Email</th>
                                                 <th>SDT</th>
                                                 <th>Giới tính</th>
-                                                <th>Score</th>
+                                                <th>Điểm</th>
                                                 <th>Trạng thái</th>
                                                 <th>Ngày tạo</th>
                                                 <th>Chức năng</th>
@@ -263,6 +263,9 @@
                                                 <td>{{$user->score}}</td>
                                                 <td>{{$user->status}}</td>
                                                 <td>{{$user->created_at}}</td>
+                                                <td>
+                                                    <button type="submit" value="{{$user->id}}" class="btn btn-primary editbtn btn-sm">Khóa</button>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
