@@ -46,19 +46,7 @@ Route::get('/view-questions/{id}', [QuestionController::class,'edit'])->middlewa
 Route::put('/update-questions', [QuestionController::class,'update'])->name('update-questions')->middleware('AdminRole');
 Route::delete('/view-questions/{id}', [QuestionController::class,'destroy'])->name('delete-questions')->middleware('AdminRole');
 
-Route::get('/global-leaderboard', function () {
-    return view('global-leaderboard');
-})->name('global-leaderboard');
-
-Route::get('/monthly-leaderboard', function () {
-    return view('monthly-leaderboard');
-})->name('monthly-leaderboard');
-
-Route::get('/daily-leaderboard', function () {
-    return view('daily-leaderboard');
-})->name('daily-leaderboard');
-
-
+Route::get('/global-leaderboard',[UserInfoController::class,'show'])->name('global-leaderboard')->middleware('AdminRole');
 
 
 Route::get('/question-packs', function () {

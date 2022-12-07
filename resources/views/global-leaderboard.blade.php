@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Global Leaderboard Details  | Qearner - Learn More Earn More - Admin Panel </title>
+        <title>Bảng xếp hạng  | Qearner - Learn More Earn More - Admin Panel </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- FavIcon -->
         <link rel="icon"  type="image/png"  href="images/logo-half.png" />
@@ -30,6 +30,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css" integrity="sha256-tBxlolRHP9uMsEFKVk+hk//ekOlXOixLKvye5W2WR5c=" crossorigin="anonymous" />
         <!-- Custom Theme Style -->
         <link href="css/custom.min.css" rel="stylesheet">
+        <!-- Custom Style -->
+        <link href="css/style.css" rel="stylesheet">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
@@ -93,20 +95,13 @@
                         <ul class="nav side-menu">
                             <li><a href ="{{ route('home')}}"><em class="fas fa-home"></em> Dashboard</a></li>
                             <li><a href ="{{ route('users')}}"><em class="fas fa-users"></em> Người dùng</a></li>
-                            <li>
-                                <a><em class="fas fa-th"></em> Bảng xếp hạng<span class="fas fa-caret-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="{{ route('global-leaderboard') }}">Tất cả</a></li>
-                                    <li><a href="{{ route('monthly-leaderboard') }}">Tháng</a></li>
-                                    <li><a href="{{ route('daily-leaderboard') }}">Ngày</a></li>                                       
-                                </ul>
-                            </li>                                   
+                            <li><a href ="{{ route('global-leaderboard')}}"><em class="fas fa-users"></em> Bảng xếp hạng</a></li>                                
                             <li>
                                 <a href="{{ route('category') }}"><em class="fas fa-gift"></em> Lĩnh vực </a>
                                 <!-- <ul class="nav child_menu">
-                                    <li><a href="main-category.php">Main Category</a></li>
-                                    <li><a href="sub-category.php">Sub Category</a></li>
-                                    <li><a href="category-order.php">Category Order</a></li>
+                                    <li><a href="main-user.php">Main user</a></li>
+                                    <li><a href="sub-user.php">Sub user</a></li>
+                                    <li><a href="user-order.php">user Order</a></li>
                                 </ul> -->
                             </li>
                             <li>
@@ -182,41 +177,46 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Global Leaderboard Details <small>View day wise leaderboard</small></h2>
+                                    <h2>Bảng xếp hạng</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
 
-                                    <table aria-describedby="mydesc" class='table-striped' id='global_leaderboard'
-                                           data-toggle="table"
-                                           data-url="get-list.php?table=global_leaderboard"
-                                           data-click-to-select="true"
-                                           data-side-pagination="server"
-                                           data-pagination="true"
-                                           data-page-list="[5, 10, 20, 50, 100, 200]"
-                                           data-search="true" data-show-columns="true"
-                                           data-show-refresh="true" data-trim-on-search="false"
-                                           data-sort-name="user_rank" data-sort-order="asc"
-                                           data-mobile-responsive="true"
-                                           data-toolbar="#toolbar" data-show-export="false"
-                                           data-maintain-selected="true"
-                                           data-export-types='["txt","excel"]'
-                                           data-export-options='{
-                                           "fileName": "global-leaderboard-list-20-11-22",
-                                           "ignoreColumn": ["state"]	
-                                           }'
-                                           data-query-params="queryParams_1">
+                                    <table class="content-table">
                                         <thead>
                                             <tr>
-                                                <th scope="col" data-field="state" data-checkbox="true"></th>
-                                                <th scope="col" data-field="id" data-sortable="true">ID</th>
-                                                <th scope="col" data-field="user_id" data-sortable="true" data-visible="false">User ID</th>
-                                                <th scope="col" data-field="name" data-sortable="true">Name</th>
-                                                <th scope="col" data-field="email" data-sortable="true">Email</th>
-                                                <th scope="col" data-field="score" data-sortable="true">Score</th>
-                                                <th scope="col" data-field="user_rank" data-sortable="true">Rank</th>
+                                                <th>ID</th>
+                                                <th>Tên người chơi</th>
+                                                <th>Ngày sinh</th>
+                                                <th>Giới tính</th>
+                                                <th>Số điểm</th>
+                                                <th>Chức năng</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                            
+                                            @foreach($list_user as $user)
+                                            <tr>
+                                                <td>{{$user->id}}</td>
+                                                <td>{{$user->name}}</td>
+                                                <td>{{$user->dateofbirth}}</td>
+                                                <td>{{$user->gender}}</td>
+                                                <td>{{$user->score}}</td>
+                                                <td>
+                                                    {{-- <div class="col-md-2">
+                                                        <button type="button" value="{{$user->id}}" class="btn btn-primary editbtn btn-sm">Sửa</button>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <form method="post" action="{{route('delete-user',$user->id)}}">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-primary deletebtn btn-sm">Xóa</button>
+                                                        </form>
+                                                    </div> --}}
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

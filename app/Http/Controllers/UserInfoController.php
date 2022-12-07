@@ -20,7 +20,6 @@ class UserInfoController extends Controller
             ->join('user_infos', 'users.id', '=', 'user_infos.user_id')
             ->select('user_infos.*', 'users.status', 'users.role')
             ->get();
-
         //$list_user = UserInfo::get();
         return view('users',['list_user'=>$list_user]);
     }
@@ -52,9 +51,15 @@ class UserInfoController extends Controller
      * @param  \App\Models\UserInfo  $userInfo
      * @return \Illuminate\Http\Response
      */
-    public function show(UserInfo $userInfo)
+    public function show()
     {
-        //
+        $list_user = DB::table('users')
+            ->join('user_infos', 'users.id', '=', 'user_infos.user_id')
+            ->select('user_infos.*', 'users.status', 'users.role')
+            ->orderBy('user_infos.score','DESC') 
+            ->get();
+        //$list_user = UserInfo::get();
+        return view('global-leaderboard',['list_user'=>$list_user]);
     }
 
     /**

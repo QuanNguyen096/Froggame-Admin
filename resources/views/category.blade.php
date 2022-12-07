@@ -87,14 +87,7 @@
                         <ul class="nav side-menu">
                             <li><a href ="{{ route('home')}}"><em class="fas fa-home"></em> Dashboard</a></li>
                             <li><a href ="{{ route('users')}}"><em class="fas fa-users"></em> Người dùng</a></li>
-                            <li>
-                                <a><em class="fas fa-th"></em> Bảng xếp hạng<span class="fas fa-caret-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="{{ route('global-leaderboard') }}">Tất cả</a></li>
-                                    <li><a href="{{ route('monthly-leaderboard') }}">Tháng</a></li>
-                                    <li><a href="{{ route('daily-leaderboard') }}">Ngày</a></li>                                       
-                                </ul>
-                            </li>                                   
+                            <li><a href ="{{ route('global-leaderboard')}}"><em class="fas fa-users"></em> Bảng xếp hạng</a></li>                                  
                             <li>
                                 <a href="{{ route('category') }}"><em class="fas fa-gift"></em> Lĩnh vực </a>
                                 <!-- <ul class="nav child_menu">
@@ -362,6 +355,5 @@
             });
         });
         </script>
-        
     </body>
 </html>

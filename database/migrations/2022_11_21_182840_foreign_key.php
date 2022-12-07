@@ -25,17 +25,13 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
         });
 
-        Schema::table('user_answers', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('question_pack_id')->constrained();
-        });
-
         Schema::table('question_packs', function (Blueprint $table) {
             $table->foreignId('question_package_detail_id')->constrained();
         });
 
         Schema::table('question_package_details', function (Blueprint $table) {
             $table->foreignId('question_id')->constrained();
+            $table->foreignId('user_id')->constrained();
         });
     }
 

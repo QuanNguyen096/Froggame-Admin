@@ -95,14 +95,7 @@
                         <ul class="nav side-menu">
                             <li><a href ="{{ route('home')}}"><em class="fas fa-home"></em> Dashboard</a></li>
                             <li><a href ="{{ route('users')}}"><em class="fas fa-users"></em> Người dùng</a></li>
-                            <li>
-                                <a><em class="fas fa-th"></em> Bảng xếp hạng<span class="fas fa-caret-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="{{ route('global-leaderboard') }}">Tất cả</a></li>
-                                    <li><a href="{{ route('monthly-leaderboard') }}">Tháng</a></li>
-                                    <li><a href="{{ route('daily-leaderboard') }}">Ngày</a></li>                                       
-                                </ul>
-                            </li>                                   
+                            <li><a href ="{{ route('global-leaderboard')}}"><em class="fas fa-users"></em> Bảng xếp hạng</a></li>                                 
                             <li>
                                 <a href="{{ route('category') }}"><em class="fas fa-gift"></em> Lĩnh vực </a>
                                 <!-- <ul class="nav child_menu">
@@ -184,14 +177,14 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Change Password</h2>
+                                    <h2>Đổi mật khẩu</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
                                     <br />
                                     <form id="password_form"  method="POST" action ="change_password.php" class="form-horizontal form-label-left">
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="old_password">Old Password<span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="old_password">Mật khẩu cũ<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="password" id="old_password" name="old_password" required="required" class="form-control col-md-7 col-xs-12">
@@ -199,14 +192,14 @@
                                             <label id="old_status"></label>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="new_password">New Password<span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="new_password">Mật khẩu mới<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="password" id="new_password" name="new_password" required class="form-control col-md-7 col-xs-12">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="confirm_password">Confirm Password<span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="confirm_password">Nhập lại mật khẩu<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="password" id="confirm_password" name="confirm_password" required class="form-control col-md-7 col-xs-12">
@@ -219,7 +212,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                <button type="submit" id="submit_btn" class="btn btn-success">Submit</button>
+                                                <button type="submit" id="submit_btn" class="btn btn-success">Đổi mật khẩu</button>
                                             </div>
                                         </div>
                                     </form>

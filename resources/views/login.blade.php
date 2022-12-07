@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Login | Qearner - Learn More Earn More</title>
+        <title>Admin Login | Frog Quiz</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- FavIcon -->
         <link rel="icon"  type="image/png"  href="images/logo-half.png" />

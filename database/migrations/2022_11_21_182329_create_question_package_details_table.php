@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('question_package_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('idquestion');
             $table->timestamps();
         });
     }
