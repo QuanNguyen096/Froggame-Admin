@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePostRequest;
-use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::all();
+        //
+        $data = User::all();
 
         return response()->json(
           $data
@@ -47,10 +47,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(User $user)
     {
         //
     }
@@ -58,10 +58,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(User $user)
     {
         //
     }
@@ -70,28 +70,22 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePostRequest $request, Category $category)
+    public function update(Request $request, User $user)
     {
         //
-        $category->update($request->all());
-
-        return response()->json(['status' =>true,'message' =>'Post update successfully','post'=>$category],200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(User $user)
     {
         //
-        $category->delete();
-
-        return response()->json(['status' =>true,'message' =>'Post delete successfully'],200);
     }
 }

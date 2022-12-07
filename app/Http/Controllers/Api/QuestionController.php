@@ -99,5 +99,8 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         //
+        $question->delete();
+
+        return response()->json(['status' =>true,'message' =>'Post delete successfully'],200);
     }
 }
