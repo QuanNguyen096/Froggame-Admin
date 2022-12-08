@@ -53,17 +53,14 @@ class QuestionController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show($id)
     {
         //
+    return Question::find($id);
+       // return Question::with("Category")->find($id);
 
     }
-//   public function show($id)
-//     {
-//         //
-//         return Question::with("question") ->find($id);
-        
-//     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -101,6 +98,6 @@ class QuestionController extends Controller
         //
         $question->delete();
 
-        return response()->json(['status' =>true,'message' =>'Post delete successfully'],200);
+        return response()->json(['status' =>true,'message' =>'delete successfully'],200);
     }
 }

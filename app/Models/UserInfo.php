@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class UserInfo extends Model
 {
     use HasFactory;
-    protected $table = 'user_infos';
+    protected $fillable = ['image','name','email','gender','dateofbirth','phone','score'];
 
 }
+
+

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
-use App\Models\Category;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class UserInfoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::all();
+        //
+        $data = UserInfo::all();
 
         return response()->json(
           $data
@@ -42,27 +43,30 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $post = UserInfo::Create($request->all());
+        return response()->json(["post"=>$post],200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\UserInfo  $userInfo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( $id)
     {
         //
-        return Category::find($id);
+        return UserInfo::find($id);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\UserInfo  $userInfo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(UserInfo $userInfo)
     {
         //
     }
@@ -71,28 +75,25 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\UserInfo  $userInfo
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePostRequest $request, Category $category)
+    public function update(StorePostRequest  $request, UserInfo $userInfo)
     {
         //
-        $category->update($request->all());
+        $userInfo->update($request->all());
 
-        return response()->json(['status' =>true,'message' =>'Post update successfully','post'=>$category],200);
+        return response()->json(['status' =>true,'message' =>' update successfully','post'=>$userInfo],200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\UserInfo  $userInfo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(UserInfo $userInfo)
     {
         //
-        $category->delete();
-
-        return response()->json(['status' =>true,'message' =>'Post delete successfully'],200);
     }
 }
